@@ -5,8 +5,10 @@ import com.web.icity.service.NewsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -17,10 +19,14 @@ public class NewsController {
     @Resource
     NewsService newsService;
 
-    @ApiOperation("添加新闻")
+    @ApiOperation("添加新闻(包含图片)")
     @PostMapping("/insertNews")
-    public void insertNews(@RequestBody NewsEdit newsEdit){
-        newsService.insertNews(newsEdit);
+    public void insertNews(@RequestBody NewsEdit newsEdit,
+                           String coverName, MultipartFile cover,
+                           String imgName, MultipartFile img) throws IOException {
+
+        int newsId = newsService.insertNews(newsEdit);
+        newsService.uploadNewsImg(coverName, cover, imgName, img, newsId);
     }
 
     @ApiOperation("删除新闻")
@@ -35,11 +41,25 @@ public class NewsController {
         newsService.updateNews(newsEdit,id);
     }
 
-    @ApiOperation("根据Id查询新闻")
+    @ApiOperation("根据Id查询新闻详情")
     @PostMapping("/queryNewsById/{id}")
     public Map queryNewsById(@PathVariable Integer id){
-        System.out.println(newsService.selectById(id));
-        return newsService.selectById(id);
+        System.out.println(newsService.queryNewsById(id));
+        return newsService.queryNewsById(id);
+    }
+
+    @PostMapping("/insertNeswTest")
+    @ApiOperation("新闻纯文字上传测试")
+    public void insertNewsTest(@RequestBody NewsEdit newsEdit){
+        newsService.insertNews(newsEdit);
+    }
+
+    @PostMapping("/uploadNewsImgTest")
+    @ApiOperation("上传新闻图片测试")
+    public void uploadNewsImgTest(String coverName, MultipartFile cover,
+                                  String imgName, MultipartFile img,
+                                  int newsId) throws IOException {
+        newsService.uploadNewsImg(coverName, cover, imgName, img, newsId);
     }
 
 

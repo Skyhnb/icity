@@ -101,4 +101,8 @@
         delete from news
         where ID = #{newsId}
     </delete>
+
+    <select id="queryIdByNewsTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select ID from news where title = #{title}
+    </select>
 </mapper>

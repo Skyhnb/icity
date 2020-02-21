@@ -18,4 +18,6 @@ public interface NewsMapper {
     News queryByTime(int startFrom, int limitation);
 
     void updateById(News news);
+
+    int queryIdByNewsTitle(String title);
 }

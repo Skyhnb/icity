@@ -44,9 +44,9 @@ public class CaseService {
 
     public Map queryCaseById(int id){
         Map result =selectCaseById(id);
-        String coverPath = utils.getCoverImageLocation() + id;
-        String imgPath = utils.getImageLocation() + id;
-        String coverUrl = "";
+        String coverPath = utils.getCaseCoverImageLocation() + id;
+        String imgPath = utils.getCaseImageLocation() + id;
+        ArrayList<String> coverUrl =new ArrayList<String>();
         ArrayList<String> imgUrls = new ArrayList<String>();
         File coverDir = new File(coverPath);
         if (!coverDir.exists()){
@@ -60,11 +60,11 @@ public class CaseService {
         File[] imgFiles = imgDir.listFiles();
 
         for (File f: coverFile) {
-            coverUrl ="upload/cover/" + id + "/" + f.getName();
+            coverUrl.add("upload/case/cover/" + id + "/" + f.getName());
         }
 
         for (File f :imgFiles) {
-            imgUrls.add("upload/img/"+ id + "/" + f.getName());
+            imgUrls.add("upload/case/img/"+ id + "/" + f.getName());
         }
 
         result.put("coverUrl", coverUrl);
@@ -77,12 +77,12 @@ public class CaseService {
                               String ImgOneName, MultipartFile imgOne,
                               String ImgTwoName, MultipartFile imgTwo,
                               Integer caseId) throws IOException {
-        File CoverFolderPath = new File(utils.getCoverImageLocation() + caseId);
+        File CoverFolderPath = new File(utils.getCaseCoverImageLocation() + caseId);
         if (!CoverFolderPath.exists()){
             //递归生成文件夹
             CoverFolderPath.mkdirs();
         }
-        File ImgFolderPath = new File(utils.getImageLocation() + caseId);
+        File ImgFolderPath = new File(utils.getCaseImageLocation() + caseId);
         if (!ImgFolderPath.exists()){
             ImgFolderPath.mkdirs();
         }

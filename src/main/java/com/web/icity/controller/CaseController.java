@@ -38,7 +38,7 @@ public class CaseController {
     }
 
     @PostMapping("/deleteCase/{id}")
-    @ApiOperation("删除新闻")
+    @ApiOperation("删除案例")
     public void deleteCase(@PathVariable Integer id){
         caseService.deleteCase(id);
     }
@@ -46,11 +46,17 @@ public class CaseController {
     @PostMapping("/queryCaseById/{id}")
     @ApiOperation("根据id查找案例详情")
     public Map QueryCaseById(@PathVariable Integer id){
-        System.out.println(caseService.selectCaseById(id));
+        System.out.println(caseService.queryCaseById(id));
         return caseService.queryCaseById(id);
     }
 
-    @PostMapping("/uploadCaseImg")
+    @PostMapping("/insertCaseTest")
+    @ApiOperation("上传案例纯文字测试")
+    public void insertCaseTest(@RequestBody CaseEdit caseEdit){
+        caseService.insertCase(caseEdit);
+    }
+
+    @PostMapping("/uploadCaseImgTest")
     @ApiOperation("上传图片测试")
     public void uploadCaseImg(String coverName, MultipartFile coverImg,
                               String ImgOneName, MultipartFile imgOne,

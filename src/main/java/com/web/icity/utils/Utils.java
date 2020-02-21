@@ -26,10 +26,10 @@ public class Utils {
         }
     }
 
-    // 获取封面图片路径
-    public  String getCoverImageLocation(){
+    // 获取案例封面图片路径
+    public  String getCaseCoverImageLocation(){
         try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/cover/";
+            return ResourceUtils.getURL("classpath:").getPath()+"upload/case/cover/";
         }catch (FileNotFoundException e){
             e.printStackTrace();
             System.out.println("静态img文件夹没有创建。");
@@ -38,10 +38,10 @@ public class Utils {
         }
     }
 
-    //获取正文图片路径
-    public String getImageLocation(){
+    //获取案例正文图片路径
+    public String getCaseImageLocation(){
         try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/img/";
+            return ResourceUtils.getURL("classpath:").getPath()+"upload/case/img/";
         }catch (FileNotFoundException e){
             e.printStackTrace();
             System.out.println("静态img文件夹没有创建。");
@@ -50,4 +50,26 @@ public class Utils {
         }
     }
 
+    //获取新闻封面图片路径
+    public String getNewsCoverImageLocation(){
+        try{
+            return ResourceUtils.getURL("classpath:").getPath()+"upload/news/cover/";
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            System.out.println("静态img文件夹没有创建。");
+            assert false;
+            return "";
+        }
+    }
+    //获取新闻正文图片路径
+    public String getNewsImageLocation(){
+        try{
+            return ResourceUtils.getURL("classpath:").getPath()+"upload/news/img/";
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            System.out.println("静态img文件夹没有创建。");
+            assert false;
+            return "";
+        }
+    }
 }
