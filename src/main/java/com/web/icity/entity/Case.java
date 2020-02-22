@@ -2,6 +2,9 @@ package com.web.icity.entity;
 
 import com.web.icity.entity.queryEntity.CaseEdit;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Case {
     private int caseId;
     private String district;
@@ -11,6 +14,7 @@ public class Case {
     private String caseTitle;
     private String contentSource;
     private String content;
+    private String createTime;
 
     public Case(){}
 
@@ -22,6 +26,9 @@ public class Case {
         this.caseTitle = caseEdit.getCaseTitle();
         this.contentSource = caseEdit.getContentSource();
         this.content = caseEdit.getContent();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        this.setCreateTime(simpleDateFormat.format(date));
     }
 
     public int getCaseId() {
@@ -86,5 +93,13 @@ public class Case {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

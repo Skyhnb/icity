@@ -3,6 +3,7 @@ package com.web.icity.service;
 import com.web.icity.dao.TableMapper.CaseMapper;
 import com.web.icity.entity.Case;
 import com.web.icity.entity.queryEntity.CaseEdit;
+import com.web.icity.entity.queryEntity.Range;
 import com.web.icity.utils.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +25,7 @@ public class CaseService {
     public int insertCase(CaseEdit caseEdit){
         Case myCase = new Case(caseEdit);
         caseMapper.insertCase(myCase);
-        return caseMapper.queryIdByCaseTitle(caseEdit.getCaseTitle());
+        return caseMapper.queryIdByCaseCreateTime(myCase.getCreateTime());
     }
 
     public void updateCase(int id, CaseEdit caseEdit){
@@ -40,6 +41,28 @@ public class CaseService {
 
     public Map selectCaseById(int id ){
         return caseMapper.selectById(id);
+    }
+
+    public ArrayList showCaseList(Range range){
+        ArrayList<Map> result = caseMapper.showCaseListByTime(range);
+
+        for (Map myCase :result) {
+            int id = (int) myCase.get("caseId");
+            String coverPath = utils.getCaseCoverImageLocation() + id;
+            ArrayList<String> coverUrl = new ArrayList<>();
+            File coverDir = new File(coverPath);
+            if (!coverDir.exists()){
+                coverDir.mkdirs();
+            }
+            File[] cover = coverDir.listFiles();
+
+            for (File f :cover) {
+                coverUrl.add("upload/case/cover/" + id + "/" + f.getName());
+            }
+            myCase.put("coverUrl", coverUrl);
+        }
+
+        return result;
     }
 
     public Map queryCaseById(int id){

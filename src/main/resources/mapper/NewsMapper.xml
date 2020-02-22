@@ -11,7 +11,20 @@
         <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
         <result column="genre" property="genre" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap id="newsListResult" type="HashMap">
+        <id column="ID" property="newsId" jdbcType="DECIMAL"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="genre" property="genre" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="newsList">
+        ID, title, update_time, genre, introduction
+    </sql>
 
     <insert id="insertNews" parameterType="com.web.icity.entity.News">
         insert into news
@@ -37,6 +50,9 @@
             <if test="genre != null">
                 genre,
             </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="title != null">
@@ -59,6 +75,9 @@
             </if>
             <if test="genre != null">
                 #{genre},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
             </if>
         </trim>
 
@@ -88,6 +107,10 @@
             <if test="genre != null">
                 genre = #{genre},
             </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+
         </set>
         where ID = #{newsId}
     </update>
@@ -102,7 +125,14 @@
         where ID = #{newsId}
     </delete>
 
-    <select id="queryIdByNewsTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
-        select ID from news where title = #{title}
+    <select id="queryIdByNewsCreateTime" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select ID from news where create_time = #{createTime}
+    </select>
+
+    <select id="showNewsListByTime" parameterType="com.web.icity.entity.queryEntity.Range" resultMap="newsListResult">
+        select <include refid="newsList"></include>
+        from news
+        order by create_time desc
+        limit #{startFrom}, #{limitation}
     </select>
 </mapper>

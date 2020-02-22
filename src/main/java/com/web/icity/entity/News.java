@@ -2,6 +2,9 @@ package com.web.icity.entity;
 
 import com.web.icity.entity.queryEntity.NewsEdit;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class News {
     private int newsId;
     private String title;
@@ -11,6 +14,7 @@ public class News {
     private String introduction;
     private String content;
     private String genre;
+    private String createTime;
 
     public News(){}
 
@@ -22,6 +26,9 @@ public class News {
         this.setIntroduction(newsEdit.getIntroduction());
         this.setContent(newsEdit.getContent());
         this.setGenre(newsEdit.getGenre());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        this.setCreateTime(simpleDateFormat.format(date));
     }
 
     public int getNewsId() {
@@ -86,5 +93,12 @@ public class News {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

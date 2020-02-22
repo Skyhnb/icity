@@ -12,7 +12,18 @@
         <result column="case_title" property="caseTitle" jdbcType="VARCHAR"/>
         <result column="content_source" property="contentSource" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap id="caseListResult" type="HashMap">
+        <id column="ID" property="caseId" jdbcType="DECIMAL"/>
+        <result column="case_title" property="caseTitle" jdbcType="VARCHAR"/>
+        <result column="content_source" property="contentSource" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="caseList">
+        ID, case_title, content_source
+    </sql>
 
     <insert id="insertCase" parameterType="com.web.icity.entity.Case">
         insert into cases
@@ -38,6 +49,9 @@
             <if test="content != null">
                 content,
             </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="district != null">
@@ -60,6 +74,9 @@
             </if>
             <if test="content != null">
                 #{content},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
             </if>
         </trim>
     </insert>
@@ -88,6 +105,9 @@
             <if test="content != null">
                 content = #{content},
             </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
         </set>
     </update>
 
@@ -99,8 +119,15 @@
         select * from cases where ID = #{id}
     </select>
 
-    <select id="queryIdByCaseTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="queryIdByCaseCreateTime" parameterType="java.lang.String" resultType="java.lang.Integer">
         select ID from cases
-        where case_title = #{caseTitle}
+        where create_time = #{createTime}
+    </select>
+
+    <select id="showCaseListByTime" parameterType="com.web.icity.entity.queryEntity.Range" resultMap="caseListResult">
+        select <include refid="caseList"></include>
+        from cases
+        order by create_time desc
+        limit #{startFrom}, #{limitation}
     </select>
 </mapper>

@@ -1,9 +1,11 @@
 package com.web.icity.dao.TableMapper;
 
 import com.web.icity.entity.News;
+import com.web.icity.entity.queryEntity.Range;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Mapper
@@ -15,9 +17,9 @@ public interface NewsMapper {
 
     Map selectById(int newsId);
 
-    News queryByTime(int startFrom, int limitation);
-
     void updateById(News news);
 
-    int queryIdByNewsTitle(String title);
+    int queryIdByNewsCreateTime(String createTime);
+
+    ArrayList showNewsListByTime(Range range);
 }

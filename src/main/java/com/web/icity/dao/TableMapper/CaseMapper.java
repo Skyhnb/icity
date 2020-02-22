@@ -2,9 +2,11 @@ package com.web.icity.dao.TableMapper;
 
 import com.web.icity.entity.Case;
 import com.web.icity.entity.queryEntity.CaseEdit;
+import com.web.icity.entity.queryEntity.Range;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Mapper
@@ -18,7 +20,9 @@ public interface CaseMapper {
 
     Map selectById(int id);
 
-    int queryIdByCaseTitle(String caseTitle);
+    int queryIdByCaseCreateTime(String createTime);
+
+    ArrayList showCaseListByTime(Range range);
 
 
 

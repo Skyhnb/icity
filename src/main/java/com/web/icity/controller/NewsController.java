@@ -1,6 +1,7 @@
 package com.web.icity.controller;
 
 import com.web.icity.entity.queryEntity.NewsEdit;
+import com.web.icity.entity.queryEntity.Range;
 import com.web.icity.service.NewsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -46,6 +48,12 @@ public class NewsController {
     public Map queryNewsById(@PathVariable Integer id){
         System.out.println(newsService.queryNewsById(id));
         return newsService.queryNewsById(id);
+    }
+
+    @PostMapping("/newsList")
+    @ApiOperation("/根据时间返回新闻简介列表")
+    public ArrayList showNewsList(@RequestBody  Range range){
+        return newsService.showNewsList(range);
     }
 
     @PostMapping("/insertNeswTest")

@@ -1,6 +1,7 @@
 package com.web.icity.controller;
 
 import com.web.icity.entity.queryEntity.CaseEdit;
+import com.web.icity.entity.queryEntity.Range;
 import com.web.icity.service.CaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -48,6 +50,12 @@ public class CaseController {
     public Map QueryCaseById(@PathVariable Integer id){
         System.out.println(caseService.queryCaseById(id));
         return caseService.queryCaseById(id);
+    }
+
+    @PostMapping("/caseList")
+    @ApiOperation("显示案例列表")
+    public ArrayList showCaseList(@RequestBody Range range){
+        return caseService.showCaseList(range);
     }
 
     @PostMapping("/insertCaseTest")

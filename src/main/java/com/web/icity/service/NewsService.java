@@ -3,6 +3,7 @@ package com.web.icity.service;
 import com.web.icity.dao.TableMapper.NewsMapper;
 import com.web.icity.entity.News;
 import com.web.icity.entity.queryEntity.NewsEdit;
+import com.web.icity.entity.queryEntity.Range;
 import com.web.icity.utils.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,7 @@ public class NewsService {
     public int insertNews(NewsEdit newsEdit){
         News news = new News(newsEdit);
         newsMapper.insertNews(news);
-        return newsMapper.queryIdByNewsTitle(newsEdit.getTitle());
+        return newsMapper.queryIdByNewsCreateTime(news.getCreateTime());
     }
 
     public void deleteNews(int id){
@@ -35,6 +36,29 @@ public class NewsService {
 
     public Map selectById(int id){
         return newsMapper.selectById(id);
+    }
+
+    public ArrayList showNewsList(Range range){
+        ArrayList<Map> result =newsMapper.showNewsListByTime(range);
+        
+        //获取封面图片
+        for (Map news :result) {
+            ArrayList<String> coverUrl = new ArrayList<>();
+            String CoverPath = utils.getNewsCoverImageLocation() + news.get("newsId");
+            File coverDir = new File(CoverPath);
+            if (!coverDir.exists()){
+                coverDir.mkdirs();
+            }
+            File cover[] = coverDir.listFiles();
+            for (File f :cover) {
+                coverUrl.add("upload/news/cover/" + news.get("newsId") + "/" + f.getName());
+            }
+            news.put("coverUrl", coverUrl);
+        }
+
+
+
+        return result;
     }
 
     public void updateNews(NewsEdit newsEdit, int newsId){
