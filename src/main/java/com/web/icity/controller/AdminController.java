@@ -71,14 +71,17 @@ public class AdminController {
             @ApiImplicitParam(name = "account", value = "账户", required = true),
             @ApiImplicitParam(name = "password", value = "密码", required = true)
     })
-    public void signIn(HttpServletRequest request, String account, String password){
+    public int signIn(HttpServletRequest request, String account, String password){
         Administrator admin = adminService.selectByAccAndPwd(account,password);
         if (admin != null){
             System.out.println("用户 " + admin.getName() + " 登录成功");
+
             utils.setSession(request,"adminId", admin.getUserID());
+            return 1;
         }
         else{
             System.out.println("用户名或密码错误");
+            return 0;
         }
     }
 
