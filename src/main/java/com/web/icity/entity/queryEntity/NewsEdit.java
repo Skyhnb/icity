@@ -1,5 +1,8 @@
 package com.web.icity.entity.queryEntity;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 public class NewsEdit {
     private String title;
     private String newsSource;
@@ -8,6 +11,27 @@ public class NewsEdit {
     private String introduction;
     private String content;
     private String genre;
+
+    public String getCoverName() {
+        return coverName;
+    }
+
+    public void setCoverName(String coverName) {
+        this.coverName = coverName;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+
+    private String coverName;
+    private String imgName;
+
 
     NewsEdit(){}
 

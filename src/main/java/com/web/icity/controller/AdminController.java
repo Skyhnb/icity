@@ -37,11 +37,16 @@ public class AdminController {
             @ApiImplicitParam(name = "password", value = "密码", required = true),
             @ApiImplicitParam(name = "real_name", value = "真实姓名", required = true)
     })
-    public void insertAdmin(@RequestBody Admin admin){
+    public int insertAdmin(@RequestBody Admin admin){
         if (adminService.selectByAccount(admin.account) == null){
-            adminService.insert(admin.account,admin.password,admin.realName);
+            System.out.println(admin.account);
+            System.out.println(admin.password);
+            System.out.println(admin.real_name);
+            adminService.insert(admin.account,admin.password,admin.real_name);
+            return 1;
         }
         else System.out.println("用户已存在");
+        return 0;
 
     }
 
@@ -61,8 +66,8 @@ public class AdminController {
         Administrator myAdmin = adminService.selectById(id);
         if (admin.password != null)
             myAdmin.setPassword(admin.password);
-        if(admin.realName != null)
-            myAdmin.setName(admin.realName);
+        if(admin.real_name != null)
+            myAdmin.setName(admin.real_name);
         adminService.update(myAdmin);
     }
 

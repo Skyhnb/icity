@@ -23,13 +23,14 @@ public class NewsController {
 
     @ApiOperation("添加新闻(包含图片)")
     @PostMapping("/insertNews")
-    public void insertNews( NewsEdit newsEdit,
-                           @RequestParam("coverName") String coverName, @RequestParam("cover") MultipartFile cover,
-                           @RequestParam("imgName") String imgName, @RequestParam("img") MultipartFile img) throws IOException {
+    public void insertNews( @RequestParam("cover") MultipartFile cover,
+                            @RequestParam("img") MultipartFile img,
+                            @RequestBody  NewsEdit newsEdit) throws IOException {
 
         System.out.println("开始 上传");
         int newsId = newsService.insertNews(newsEdit);
-        newsService.uploadNewsImg(coverName, cover, imgName, img, newsId);
+        newsService.uploadNewsImg(newsEdit.getCoverName(),cover,
+                newsEdit.getImgName(),img, newsId);
     }
 
     @ApiOperation("删除新闻")
