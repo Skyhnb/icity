@@ -7,8 +7,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,14 +25,15 @@ public class NewsController {
 
     @ApiOperation("添加新闻(包含图片)")
     @PostMapping("/insertNews")
-    public void insertNews( @RequestParam("cover") MultipartFile cover,
-                            @RequestParam("img") MultipartFile img,
-                            @RequestBody  NewsEdit newsEdit) throws IOException {
+    public void insertNews(NewsEdit newsEdit,
+                           @RequestParam("cover") MultipartFile cover,
+                           @RequestParam("img") MultipartFile img) throws IOException {
 
         System.out.println("开始 上传");
+        System.out.println(newsEdit.print());
+        System.out.println(newsEdit.getCoverName() + "\n" + newsEdit.getImgName());
         int newsId = newsService.insertNews(newsEdit);
-        newsService.uploadNewsImg(newsEdit.getCoverName(),cover,
-                newsEdit.getImgName(),img, newsId);
+        newsService.uploadNewsImg(newsEdit.getCoverName(),cover,newsEdit.getImgName(),img, newsId);
     }
 
     @ApiOperation("删除新闻")

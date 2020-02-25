@@ -90,4 +90,10 @@ public class NewsEdit {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    public String print(){
+        String r = this.getTitle() + "\n"+ this.getContent() +"\n" +this.getIntroduction() + "\n"+
+                this.getGenre() + "\n" +this.getLink() +"\n"+this.getNewsSource();
+        return r;
+    }
 }
