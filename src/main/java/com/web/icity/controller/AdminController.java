@@ -1,6 +1,7 @@
 package com.web.icity.controller;
 
 import com.web.icity.entity.Administrator;
+import com.web.icity.entity.queryEntity.Admin;
 import com.web.icity.service.AdminService;
 import com.web.icity.utils.Utils;
 import io.swagger.annotations.Api;
@@ -56,13 +57,13 @@ public class AdminController {
             @ApiImplicitParam(name = "password", value = "密码", required = false),
             @ApiImplicitParam(name = "real_name", value = "真实姓名", required = false)
     })
-    public void update(@PathVariable Integer id, String password, String real_name){
-        Administrator admin = adminService.selectById(id);
-        if (password != null)
-            admin.setPassword(password);
-        if(real_name != null)
-            admin.setName(real_name);
-        adminService.update(admin);
+    public void update(@PathVariable Integer id, @RequestBody Admin admin){
+        Administrator myAdmin = adminService.selectById(id);
+        if (admin.password != null)
+            myAdmin.setPassword(admin.password);
+        if(admin.realName != null)
+            myAdmin.setName(admin.realName);
+        adminService.update(myAdmin);
     }
 
     @PostMapping("/signIn")
@@ -71,8 +72,10 @@ public class AdminController {
             @ApiImplicitParam(name = "account", value = "账户", required = true),
             @ApiImplicitParam(name = "password", value = "密码", required = true)
     })
-    public int signIn(HttpServletRequest request, String account, String password){
-        Administrator admin = adminService.selectByAccAndPwd(account,password);
+    public int signIn(HttpServletRequest request, @RequestBody Admin a){
+        System.out.println("开始登录");
+        Administrator admin = adminService.selectByAccAndPwd(a.account,a.password);
+        System.out.println(a.account + a.password);
         if (admin != null){
             System.out.println("用户 " + admin.getName() + " 登录成功");
 
@@ -83,6 +86,7 @@ public class AdminController {
             System.out.println("用户名或密码错误");
             return 0;
         }
+
     }
 
     @ApiOperation("退出登录")
