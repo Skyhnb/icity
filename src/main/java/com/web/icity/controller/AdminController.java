@@ -37,9 +37,9 @@ public class AdminController {
             @ApiImplicitParam(name = "password", value = "密码", required = true),
             @ApiImplicitParam(name = "real_name", value = "真实姓名", required = true)
     })
-    public void insertAdmin(String account, String password, String real_name){
-        if (adminService.selectByAccount(account) == null){
-            adminService.insert(account,password,real_name);
+    public void insertAdmin(@RequestBody Admin admin){
+        if (adminService.selectByAccount(admin.account) == null){
+            adminService.insert(admin.account,admin.password,admin.realName);
         }
         else System.out.println("用户已存在");
 

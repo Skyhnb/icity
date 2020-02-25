@@ -9,6 +9,8 @@ public class NewsEdit {
     private String content;
     private String genre;
 
+    NewsEdit(){}
+
     public String getTitle() {
         return title;
     }

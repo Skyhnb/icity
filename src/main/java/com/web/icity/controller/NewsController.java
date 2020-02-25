@@ -23,7 +23,7 @@ public class NewsController {
 
     @ApiOperation("添加新闻(包含图片)")
     @PostMapping("/insertNews")
-    public void insertNews(@RequestBody NewsEdit newsEdit,
+    public void insertNews( NewsEdit newsEdit,
                            @RequestParam("coverName") String coverName, @RequestParam("cover") MultipartFile cover,
                            @RequestParam("imgName") String imgName, @RequestParam("img") MultipartFile img) throws IOException {
 
