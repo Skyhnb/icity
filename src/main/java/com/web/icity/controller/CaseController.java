@@ -24,7 +24,7 @@ public class CaseController {
 
     @PostMapping("/insertCase")
     @ApiOperation("添加案例（包含图片上传）")
-    public int insertCase(@RequestBody CaseEdit caseEdit,
+    public int insertCase(CaseEdit caseEdit,
                            @RequestParam("coverImg") MultipartFile coverImg,
                             @RequestParam("imgOne") MultipartFile imgOne,
                             @RequestParam("imgTwo") MultipartFile imgTwo) throws IOException {
