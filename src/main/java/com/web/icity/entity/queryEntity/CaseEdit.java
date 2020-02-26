@@ -8,6 +8,9 @@ public class CaseEdit {
     private String caseTitle;
     private String contentSource;
     private String content;
+    private String coverName;
+    private String ImgOneName;
+    private String ImgTwoName;
 
     public String getDistrict() {
         return district;
@@ -63,5 +66,29 @@ public class CaseEdit {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCoverName() {
+        return coverName;
+    }
+
+    public void setCoverName(String coverName) {
+        this.coverName = coverName;
+    }
+
+    public String getImgOneName() {
+        return ImgOneName;
+    }
+
+    public void setImgOneName(String imgOneName) {
+        ImgOneName = imgOneName;
+    }
+
+    public String getImgTwoName() {
+        return ImgTwoName;
+    }
+
+    public void setImgTwoName(String imgTwoName) {
+        ImgTwoName = imgTwoName;
     }
 }

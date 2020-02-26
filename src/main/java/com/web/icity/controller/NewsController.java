@@ -25,7 +25,7 @@ public class NewsController {
 
     @ApiOperation("添加新闻(包含图片)")
     @PostMapping("/insertNews")
-    public void insertNews(NewsEdit newsEdit,
+    public int insertNews(NewsEdit newsEdit,
                            @RequestParam("cover") MultipartFile cover,
                            @RequestParam("img") MultipartFile img) throws IOException {
 
@@ -34,6 +34,7 @@ public class NewsController {
         System.out.println(newsEdit.getCoverName() + "\n" + newsEdit.getImgName());
         int newsId = newsService.insertNews(newsEdit);
         newsService.uploadNewsImg(newsEdit.getCoverName(),cover,newsEdit.getImgName(),img, newsId);
+        return 1;
     }
 
     @ApiOperation("删除新闻")

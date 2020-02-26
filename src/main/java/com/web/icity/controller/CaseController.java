@@ -24,13 +24,16 @@ public class CaseController {
 
     @PostMapping("/insertCase")
     @ApiOperation("添加案例（包含图片上传）")
-    public void insertCase(@RequestBody CaseEdit caseEdit,
-                           String coverName, MultipartFile coverImg,
-                           String ImgOneName, MultipartFile imgOne,
-                           String ImgTwoName, MultipartFile imgTwo) throws IOException {
+    public int insertCase(@RequestBody CaseEdit caseEdit,
+                           @RequestParam("coverImg") MultipartFile coverImg,
+                            @RequestParam("imgOne") MultipartFile imgOne,
+                            @RequestParam("imgTwo") MultipartFile imgTwo) throws IOException {
 
         int caseId = caseService.insertCase(caseEdit);
-        caseService.uploadCaseImg(coverName,coverImg,ImgOneName, imgOne, ImgTwoName, imgTwo, caseId);
+        caseService.uploadCaseImg(caseEdit.getCoverName(),coverImg,
+                                    caseEdit.getImgOneName(), imgOne,
+                                    caseEdit.getImgTwoName(), imgTwo, caseId);
+        return 1;
     }
 
     @PostMapping("/updateCase/{id}")
