@@ -51,9 +51,9 @@ public class AdminController {
     }
 
     @ApiOperation("注销管理员")
-    @PostMapping("/deleteAdmin/{id}")
-    public void deleteAdmin(@PathVariable Integer id){
-        adminService.delete(id);
+    @PostMapping("/deleteAdmin")
+    public void deleteAdmin(@RequestBody Admin admin){
+        adminService.delete(admin);
     }
 
     @PostMapping("/updateAdmin/{id}")
@@ -85,7 +85,7 @@ public class AdminController {
             System.out.println("用户 " + admin.getName() + " 登录成功");
 
             utils.setSession(request,"adminId", admin.getUserID());
-            return 1;
+            return admin.getUserID();
         }
         else{
             System.out.println("用户名或密码错误");

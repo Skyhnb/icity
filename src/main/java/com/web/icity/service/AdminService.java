@@ -2,6 +2,7 @@ package com.web.icity.service;
 
 import com.web.icity.dao.TableMapper.AdministratorMapper;
 import com.web.icity.entity.Administrator;
+import com.web.icity.entity.queryEntity.Admin;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,8 +29,8 @@ public class AdminService {
         administratorMapper.insertAdmin(admin);
     }
 
-    public void delete(int id){
-        administratorMapper.deleteById(id);
+    public void delete(Admin admin){
+        administratorMapper.deleteById(admin.account,admin.password);
     }
 
     public void update(Administrator administrator){

@@ -10,7 +10,7 @@ public interface AdministratorMapper {
 
     void insertAdmin(Administrator admin);
 
-    void deleteById(int id);
+    void deleteById(String account, String password);
 
     Administrator selectById(int id);
 

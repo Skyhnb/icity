@@ -41,8 +41,8 @@
         where ID =#{userID}
     </update>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
-        delete from administrator where ID = #{id}
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from administrator where account = #{account} and password = #{password}
     </delete>
 
 
