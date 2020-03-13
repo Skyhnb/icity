@@ -123,6 +123,7 @@ public class NewsService {
 
         cover.transferTo(coverImg);
         img.transferTo(Img);
-
+        System.out.println("cover:  " + coverImg.getAbsolutePath());
+        System.out.println("location:   " + utils.getNewsCoverImageLocation());
     }
 }

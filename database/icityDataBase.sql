@@ -44,3 +44,4 @@ create index news_create_time_index
     on news (create_time);
 
 
+insert into administrator(account, password, real_name)values ("1932194","519666", "邓弘");

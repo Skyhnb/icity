@@ -5,6 +5,7 @@ import org.springframework.util.ResourceUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Component
 public class Utils {
@@ -28,48 +29,25 @@ public class Utils {
 
     // 获取案例封面图片路径
     public  String getCaseCoverImageLocation(){
-        try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/case/cover/";
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("静态img文件夹没有创建。");
-            assert false;
-            return "";
-        }
+        return System.getProperty("user.dir")+"/upload/case/cover/";
     }
 
     //获取案例正文图片路径
     public String getCaseImageLocation(){
-        try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/case/img/";
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("静态img文件夹没有创建。");
-            assert false;
-            return "";
-        }
+        return System.getProperty("user.dir")+"/upload/case/img/";
     }
 
     //获取新闻封面图片路径
     public String getNewsCoverImageLocation(){
-        try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/news/cover/";
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("静态img文件夹没有创建。");
-            assert false;
-            return "";
-        }
+        return System.getProperty("user.dir")+"/upload/news/cover/";
     }
     //获取新闻正文图片路径
     public String getNewsImageLocation(){
-        try{
-            return ResourceUtils.getURL("classpath:").getPath()+"upload/news/img/";
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("静态img文件夹没有创建。");
-            assert false;
-            return "";
-        }
+        return System.getProperty("user.dir")+"/upload/news/img/";
+    }
+
+    public String getLocation() throws IOException {
+
+        return System.getProperty("user.dir");
     }
 }
